@@ -91,10 +91,12 @@ function moving(e){
         }
         hurtFn();
         if(hurt){
+            sounder("failAudio");
             losingFn("loosing","You loose","loosingBtn");
         }
     }
     if(ate>12){
+        sounder("successAudio");
         losingFn("winning","You WIN","winningBtn");
     }
     rerender()
@@ -296,7 +298,7 @@ function losingFn(className,message,btn) {
     }, 0);
     let losingBtnElement = document.querySelector(`.${btn}`);
     losingBtnElement.addEventListener("click",()=>{
-        losing.classList.remove("visible");
+    losing.classList.remove("visible");
         setTimeout(() => {
             losing.remove()
         }, 600);
@@ -333,6 +335,7 @@ function starting() {
 };
 starting();
 checkBox.addEventListener("click", function(){
+    sounder("clickAudio");
     if(checkBox.checked){
         while (document.querySelector(".player2")) {
             screen.removeChild(document.querySelector(".player2"));
@@ -358,6 +361,8 @@ checkBox.addEventListener("click", function(){
     }
 });
 startingBtn.addEventListener("click",()=>{
+    sounder("clickAudio");
+    sounder("startAudio");
     startingELement.classList.remove("visible");
 });
 
@@ -366,14 +371,22 @@ let btnLeft = document.querySelector(".btn1")
 let btnUp = document.querySelector(".btn3")
 let btnDown = document.querySelector(".btn4")
 btnRight.addEventListener("click", function(e){
+    sounder("clickAudio");
     moving(e.target.className);
 });
 btnLeft.addEventListener("click", function(e){
+    sounder("clickAudio");
     moving(e.target.className);
 });
 btnUp.addEventListener("click", function(e){
+    sounder("clickAudio");
     moving(e.target.className);
 });
 btnDown.addEventListener("click", function(e){
+    sounder("clickAudio");
     moving(e.target.className);
 });
+function sounder(theclass){
+    soundV = document.querySelector(`.${theclass}`);
+    soundV.play();
+}
